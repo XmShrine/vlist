@@ -1,3 +1,3 @@
 # vlist
-A struct for C to use some skills of the C++ STL list&lt;T>
-Your action must use my function to make up your vlist.
+A struct for C to use some skills of the C++ STL list<T>
+You have to go through the files in the library to manipulate vlist the constructor of the class
