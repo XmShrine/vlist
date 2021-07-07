@@ -5,6 +5,7 @@ vlist* vlist_init(void) {
     vlist* ptr = (vlist*)malloc(sizeof(vlist));
     ptr->ptr   = (struct Node*)malloc(sizeof(struct Node));
     ptr->ptr->next = 0;
+    ptr->ptr->back = 0;
     ptr->ptr->content = 0;
     return ptr;
 }
@@ -23,6 +24,18 @@ struct Node* vlist_fget(vlist* ptr, int size) {
     if (size>vlist_strlen(ptr)) return 0;
     for (int i=0; i<size+1; i++) move = move->next;
     return move;
+}
+struct Node* vlist_fget_begin(vlist* ptr) {
+    return ptr->ptr->next;
+}
+struct Node* vlist_fget_end(vlist* ptr) {
+    return vlist_fget(ptr, vlist_strlen(ptr)-1);
+}
+void* vlist_get_front(vlist* ptr) {
+    return vlist_fget_begin(ptr)->content;
+}
+void* vlist_get_back(vlist* ptr) {
+    return vlist_fget_end(ptr)->content;
 }
 void* vlist_get(vlist* ptr, int size) {
     struct Node* move = vlist_fget(ptr, size);
@@ -65,4 +78,10 @@ void vlist_clear(vlist* ptr) {
         find = move;
     }
     return;
+}
+void vlist_push_front(vlist* ptr, void* content) {
+    vlist_append(ptr, ptr->ptr, content);
+}
+void vlist_push_back(vlist* ptr, void* content) {
+    vlist_append(ptr, vlist_fget_end(ptr), content);
 }
